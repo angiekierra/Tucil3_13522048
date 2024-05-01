@@ -11,6 +11,10 @@ public class Dictionary {
         loadDictionary(filePath);
     }
 
+    public Map<Integer, Set<String>> getDictionary() {
+        return dictionary;
+    }
+
     private void loadDictionary(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -26,15 +30,18 @@ public class Dictionary {
         }
     }
 
-    public Map<Integer, Set<String>> getDictionary() {
-        return dictionary;
-    }
-
     public boolean validWord(String word) {
         int length = word.length();
         Set<String> wordSet = dictionary.get(length);
         return wordSet != null && wordSet.contains(word);
     }
+
+    public boolean isIn(String word, int length)
+    {
+        Set<String> wordSet = dictionary.get(length);
+        return wordSet.contains(word);
+    }
+    
 
     // public static void main(String[] args) {
     //     Dictionary dictionary = new Dictionary("dictionary.txt");
@@ -51,5 +58,7 @@ public class Dictionary {
 
     //     System.out.println(dictionary.validWord("bacot"));
     //     System.out.println(dictionary.validWord("beast"));
+    //     System.out.println(dictionary.isIn("beast",5));
+    //     System.out.println(dictionary.isIn("beast",5));
     // }
 }
