@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 
@@ -16,8 +18,6 @@ public class AStar extends Search {
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
-            System.out.printf("Current word: %s%n", currWord);
-            System.out.println();
 
             if (currWord.equals(endWord))
             {
@@ -34,9 +34,6 @@ public class AStar extends Search {
                     {
 
                         int cost = costMap.get(currWord) + 1;
-                        System.out.printf("Cost %d",cost);
-                        System.out.println();
-
 
                         if (!costMap.containsKey(child) || cost < costMap.get(child))
                         {
@@ -54,9 +51,6 @@ public class AStar extends Search {
                             }
                             
                             int fn = cost + heuristicCost;
-
-                            System.out.printf("F(n): %d", fn);
-                            System.out.println();
                             queue.offer(new Node(child, currNode, fn));
                         }
 

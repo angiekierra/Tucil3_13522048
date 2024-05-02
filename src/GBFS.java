@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 
@@ -6,6 +8,7 @@ public class GBFS extends Search{
     {
         System.out.println("GBFS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
+        Map<String,Integer> heuristicsMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
         queue.add(new Node(startWord,null,0));
 
@@ -13,8 +16,6 @@ public class GBFS extends Search{
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
-            System.out.printf("Current word: %s\n ", currWord);
-            System.out.println();
 
             if (currWord.equals(endWord))
             {
@@ -29,9 +30,16 @@ public class GBFS extends Search{
                 {
                     if (!visited.contains(child))
                     {
-                        int heuristicCost = getHeuristic(child, endWord);
-                        System.out.printf("Heuristic %d\n", heuristicCost);
-                        System.out.println();
+                        int heuristicCost;
+
+                        if (heuristicsMap.containsKey(child))
+                        {
+                            heuristicCost = heuristicsMap.get(child); 
+                        } else
+                        {
+                            heuristicCost = getHeuristic(child, endWord);
+                            heuristicsMap.put(child, heuristicCost);
+                        }
                         queue.add(new Node(child, currNode, heuristicCost));
                     }
                 }

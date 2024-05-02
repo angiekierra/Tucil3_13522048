@@ -1,0 +1,18 @@
+// if visited notes are not visited again
+Found!!!!
+2
+taken
+short
+6009
+10417
+[taken, taker, saker, sayer, shyer, shier, shirr, shirt, short]
+
+
+// if visited noted are visited again
+Found!!!!
+2
+taken
+short
+23769
+9662
+[taken, taker, saker, sayer, shyer, shier, shirr, shirt, short]

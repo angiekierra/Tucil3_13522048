@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 
@@ -8,6 +10,7 @@ public class UCS extends Search{
     {
         System.out.println("UCS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
+        Map<String,Integer> costMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
         queue.offer(new Node(startWord,null,0));
 
@@ -15,8 +18,6 @@ public class UCS extends Search{
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
-            System.out.printf("Current word: %s\n ", currWord);
-            System.out.println();
 
             if (currWord.equals(endWord))
             {
@@ -33,7 +34,12 @@ public class UCS extends Search{
                     if (!visited.contains(child))
                     {
                         int cost = currNode.getPrice() + 1;
-                        queue.offer(new Node(child, currNode, cost));
+
+                        if (!costMap.containsKey(child) || cost < costMap.get(child))
+                        {
+                            costMap.put(child,cost);
+                            queue.offer(new Node(child, currNode, cost));
+                        }
                     }
                 }
             }
