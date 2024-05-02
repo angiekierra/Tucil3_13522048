@@ -2,7 +2,7 @@ import java.util.*;
 
 public abstract class Search {
 
-    public abstract List<String> findSolution(String startWord, String endWord, Dictionary dictionary);
+    public abstract Result findSolution(String startWord, String endWord, Dictionary dictionary);
     
     protected List<String> getChild(String word, Dictionary dictionary) {
         List<String> children = new ArrayList<>();

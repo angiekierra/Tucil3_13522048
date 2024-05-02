@@ -4,7 +4,7 @@ import java.util.*;
 
 public class UCS extends Search{
 
-    public List<String> findSolution(String startWord, String endWord, Dictionary dictionary)
+    public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
         System.out.println("UCS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
@@ -21,7 +21,7 @@ public class UCS extends Search{
             if (currWord.equals(endWord))
             {
                 System.out.println("Found!!!!");
-                return getPath(currNode);
+                return new Result(getPath(currNode),visited.size());
             }
 
             if (!visited.contains(currWord))
@@ -33,14 +33,12 @@ public class UCS extends Search{
                     if (!visited.contains(child))
                     {
                         int cost = currNode.getPrice() + 1;
-                        System.out.printf("Cost",cost);
-                        System.out.println();
                         queue.offer(new Node(child, currNode, cost));
                     }
                 }
             }
         }
-        return new ArrayList<>();
+        return new Result(new ArrayList<>(), visited.size());
 
     }
 }

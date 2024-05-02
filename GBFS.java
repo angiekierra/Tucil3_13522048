@@ -2,7 +2,7 @@ import java.util.*;
 
 
 public class GBFS extends Search{
-    public List<String> findSolution(String startWord, String endWord, Dictionary dictionary)
+    public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
         System.out.println("GBFS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
@@ -19,7 +19,7 @@ public class GBFS extends Search{
             if (currWord.equals(endWord))
             {
                 System.out.println("Found!!!!");
-                return getPath(currNode);
+                return new Result(getPath(currNode),visited.size());
             }
 
             if (!visited.contains(currWord))
@@ -37,7 +37,7 @@ public class GBFS extends Search{
                 }
             }
         }
-        return new ArrayList<>();
+        return new Result(new ArrayList<>(), visited.size());
     }
 
 

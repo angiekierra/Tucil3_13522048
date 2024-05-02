@@ -2,7 +2,7 @@ import java.util.*;
 
 
 public class AStar extends Search {
-    public List<String> findSolution(String startWord, String endWord, Dictionary dictionary)
+    public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
         System.out.println("A-STAR");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
@@ -22,7 +22,7 @@ public class AStar extends Search {
             if (currWord.equals(endWord))
             {
                 System.out.println("Found!!!!");
-                return getPath(currNode);
+                return new Result(getPath(currNode),visited.size());
             }
 
             if (!visited.contains(currWord))
@@ -53,8 +53,6 @@ public class AStar extends Search {
                                 heuristicsMap.put(child, heuristicCost);
                             }
                             
-                            System.out.printf("Heuristic %d", heuristicCost);
-                            System.out.println();
                             int fn = cost + heuristicCost;
 
                             System.out.printf("F(n): %d", fn);
@@ -65,11 +63,9 @@ public class AStar extends Search {
     
                     }
                 }
-
-                // costMap.remove(currWord);
             }
         }
-        return new ArrayList<>();
+        return new Result(new ArrayList<>(), visited.size());
     }
 
 

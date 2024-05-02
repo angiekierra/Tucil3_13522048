@@ -4,9 +4,9 @@ public class WordLadder {
     private int algorithmID;
     private String startWord;
     private String endWord;
-    long excecutionTime;
-    Dictionary dictionary;
-    List<String> solution;
+    private long excecutionTime;
+    private Dictionary dictionary;
+    private Result result;
 
     public WordLadder()
     {
@@ -15,9 +15,10 @@ public class WordLadder {
         this.startWord = getValidWord(scanner, "Enter startword: ");
         this.endWord = getValidWord(scanner, "Enter endword: ");
         scanner.close();
+
         this.excecutionTime = 0;
         this.dictionary = new Dictionary("dictionary.txt");
-        this.solution = new ArrayList<>();
+        this.result = new Result(new ArrayList<>(),0);
     }
 
     public void printInfo()
@@ -27,7 +28,24 @@ public class WordLadder {
         System.out.println(startWord);
         System.out.println(endWord);
         System.out.println(excecutionTime);
-        System.out.println(solution);
+        System.out.println(result.getNumOfVisitedNodes());
+        System.out.println(result.getSolution());
+    }
+
+    public List<String> getSolution()
+    {
+        return this.result.getSolution();
+    }
+
+    public int getNumOfVisitedNodes()
+    {
+        return this.result.getNumOfVisitedNodes();
+    }
+
+
+    public long getExecutionTime()
+    {
+        return this.excecutionTime;
     }
 
     private int getValidAlgorithm(Scanner scanner)
@@ -38,12 +56,12 @@ public class WordLadder {
             if (scanner.hasNextInt()) {
                 option= scanner.nextInt();
                 if (option>= 1 && option<= 3) {
-                    break; // Break the loop if a valid choice is entered
+                    break;
                 }
                 System.out.println("Invalid input. Please enter a number between 1 and 3.");
             } else {
                 System.out.println("Invalid input. Please enter a number between 1 and 3.");
-                scanner.next(); // Clear the invalid input
+                scanner.next(); 
             }
         }
         return option;
@@ -54,9 +72,9 @@ public class WordLadder {
         String word;
     while (true) {
         System.out.print(prompt);
-        word = scanner.next();
+        word = scanner.next().toLowerCase();
         if (word.matches("[a-zA-Z]+") && (scanner.hasNextLine() && scanner.nextLine().trim().isEmpty())) {
-            break; // Break the loop if a valid single word is entered and there are no remaining tokens
+            break;
         }
         System.out.println("Invalid input. Please enter a valid single word (only letters).");
     }
@@ -92,7 +110,7 @@ public class WordLadder {
             }
 
             long start = System.currentTimeMillis();
-            solution = search.findSolution(startWord, endWord, dictionary);
+            result = search.findSolution(startWord, endWord, dictionary);
             long end = System.currentTimeMillis();
 
             this.excecutionTime = end - start;
@@ -107,12 +125,6 @@ public class WordLadder {
         }
     }
 
-    // public static void main(String[] args)
-    // {
-    //     WordLadder game = new WordLadder();
-    //     game.run();
-    //     game.printInfo();
-    // }
 
 
 }
