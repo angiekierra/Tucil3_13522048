@@ -4,18 +4,24 @@ import java.util.*;
 public class AStar extends Search {
     public List<String> findSolution(String startWord, String endWord, Dictionary dictionary)
     {
+        System.out.println("A-STAR");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
+        Map<String,Integer> costMap = new HashMap<>();
+        Map<String,Integer> heuristicsMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
-        queue.add(new Node(startWord,null,0));
+        queue.offer(new Node(startWord,null,0));
+        costMap.put(startWord, 0);
 
-        visited.add(startWord);
 
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
+            System.out.printf("Current word: %s%n", currWord);
+            System.out.println();
 
             if (currWord.equals(endWord))
             {
+                System.out.println("Found!!!!");
                 return getPath(currNode);
             }
 
@@ -26,11 +32,41 @@ public class AStar extends Search {
                 {
                     if (!visited.contains(child))
                     {
-                        int cost = getHeuristic(child, endWord);
-                        queue.add(new Node(child, currNode, cost));
+
+                        int cost = costMap.get(currWord) + 1;
+                        System.out.printf("Cost %d",cost);
+                        System.out.println();
+
+
+                        if (!costMap.containsKey(child) || cost < costMap.get(child))
+                        {
+                            costMap.put(child, cost);
+
+                            int heuristicCost;
+
+                            if (heuristicsMap.containsKey(child))
+                            {
+                                heuristicCost = heuristicsMap.get(child); 
+                            } else
+                            {
+                                heuristicCost = getHeuristic(child, endWord);
+                                heuristicsMap.put(child, heuristicCost);
+                            }
+                            
+                            System.out.printf("Heuristic %d", heuristicCost);
+                            System.out.println();
+                            int fn = cost + heuristicCost;
+
+                            System.out.printf("F(n): %d", fn);
+                            System.out.println();
+                            queue.offer(new Node(child, currNode, fn));
+                        }
+
     
                     }
                 }
+
+                // costMap.remove(currWord);
             }
         }
         return new ArrayList<>();

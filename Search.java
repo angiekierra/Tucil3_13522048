@@ -4,7 +4,7 @@ public abstract class Search {
 
     public abstract List<String> findSolution(String startWord, String endWord, Dictionary dictionary);
     
-    public List<String> getChild(String word, Dictionary dictionary) {
+    protected List<String> getChild(String word, Dictionary dictionary) {
         List<String> children = new ArrayList<>();
         for (int i = 0; i < word.length(); i++) {
             char[] chars = word.toCharArray();
@@ -19,7 +19,7 @@ public abstract class Search {
         return children;
     }
 
-    public List<String> getPath(Node node) {
+    protected List<String> getPath(Node node) {
         List<String> path = new ArrayList<>();
         while (node != null) {
             path.add(0, node.getWord());

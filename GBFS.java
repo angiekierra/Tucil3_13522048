@@ -4,18 +4,21 @@ import java.util.*;
 public class GBFS extends Search{
     public List<String> findSolution(String startWord, String endWord, Dictionary dictionary)
     {
+        System.out.println("GBFS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
         Set<String> visited = new HashSet<>();
         queue.add(new Node(startWord,null,0));
 
-        visited.add(startWord);
 
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
+            System.out.printf("Current word: %s\n ", currWord);
+            System.out.println();
 
             if (currWord.equals(endWord))
             {
+                System.out.println("Found!!!!");
                 return getPath(currNode);
             }
 
@@ -26,9 +29,10 @@ public class GBFS extends Search{
                 {
                     if (!visited.contains(child))
                     {
-                        int cost = getHeuristic(child, endWord);
-                        queue.add(new Node(child, currNode, cost));
-    
+                        int heuristicCost = getHeuristic(child, endWord);
+                        System.out.printf("Heuristic %d\n", heuristicCost);
+                        System.out.println();
+                        queue.add(new Node(child, currNode, heuristicCost));
                     }
                 }
             }

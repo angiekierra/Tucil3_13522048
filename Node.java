@@ -25,4 +25,9 @@ public class Node {
         return this.parent;
     }
 
+    @Override
+    public String toString() {
+        return "Node{word='" + word + "', price=" + price + "}";
+    }
+
 }
