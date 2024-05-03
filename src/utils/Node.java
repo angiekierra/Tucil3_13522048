@@ -1,4 +1,4 @@
-package src;
+package src.utils;
 
 public class Node {
     private String word;

@@ -1,6 +1,10 @@
-package src;
+package src.algorithms;
 
 import java.util.*;
+
+import src.utils.Dictionary;
+import src.utils.Node;
+import src.utils.Result;
 
 public abstract class Search {
 

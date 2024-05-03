@@ -1,18 +1,20 @@
-package src;
+package src.algorithms;
 
 import java.util.*;
 
+import src.utils.Dictionary;
+import src.utils.Node;
+import src.utils.Result;
 
-public class AStar extends Search {
+
+public class GBFS extends Search{
     public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
-        System.out.println("A-STAR");
+        System.out.println("GBFS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
-        Map<String,Integer> costMap = new HashMap<>();
         Map<String,Integer> heuristicsMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
-        queue.offer(new Node(startWord,null,0));
-        costMap.put(startWord, 0);
+        queue.add(new Node(startWord,null,0));
 
 
         while (!queue.isEmpty()) {
@@ -32,29 +34,17 @@ public class AStar extends Search {
                 {
                     if (!visited.contains(child))
                     {
+                        int heuristicCost;
 
-                        int cost = costMap.get(currWord) + 1;
-
-                        if (!costMap.containsKey(child) || cost < costMap.get(child))
+                        if (heuristicsMap.containsKey(child))
                         {
-                            costMap.put(child, cost);
-
-                            int heuristicCost;
-
-                            if (heuristicsMap.containsKey(child))
-                            {
-                                heuristicCost = heuristicsMap.get(child); 
-                            } else
-                            {
-                                heuristicCost = getHeuristic(child, endWord);
-                                heuristicsMap.put(child, heuristicCost);
-                            }
-                            
-                            int fn = cost + heuristicCost;
-                            queue.offer(new Node(child, currNode, fn));
+                            heuristicCost = heuristicsMap.get(child); 
+                        } else
+                        {
+                            heuristicCost = getHeuristic(child, endWord);
+                            heuristicsMap.put(child, heuristicCost);
                         }
-
-    
+                        queue.add(new Node(child, currNode, heuristicCost));
                     }
                 }
             }

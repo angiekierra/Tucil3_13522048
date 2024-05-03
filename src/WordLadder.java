@@ -2,6 +2,13 @@ package src;
 
 import java.util.*;
 
+import src.algorithms.AStar;
+import src.algorithms.GBFS;
+import src.algorithms.Search;
+import src.algorithms.UCS;
+import src.utils.Dictionary;
+import src.utils.Result;
+
 public class WordLadder {
     private int algorithmID;
     private String startWord;
@@ -19,7 +26,7 @@ public class WordLadder {
         scanner.close();
 
         this.excecutionTime = 0;
-        this.dictionary = new Dictionary("dictionary.txt");
+        this.dictionary = new Dictionary("../dictionary.txt");
         this.result = new Result(new ArrayList<>(),0);
     }
 
