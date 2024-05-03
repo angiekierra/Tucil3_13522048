@@ -39,6 +39,7 @@ public class WordLadder {
         System.out.println(excecutionTime);
         System.out.println(result.getNumOfVisitedNodes());
         System.out.println(result.getSolution());
+        System.out.println(result.getSolution().size());
     }
 
     public List<String> getSolution()
@@ -127,8 +128,7 @@ public class WordLadder {
 
         }
         else
-        {
-            
+        { 
             System.out.println("Your input is not in the dictionary");
             return;
         }

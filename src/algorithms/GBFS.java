@@ -14,13 +14,14 @@ public class GBFS extends Search{
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
         Map<String,Integer> heuristicsMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
-        queue.add(new Node(startWord,null,0));
+        queue.add(new Node(startWord,null,getHeuristic(startWord, endWord)));
 
 
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
-
+            System.out.print("Current Word :" + currWord + " ");
+                        System.out.println("Heuristic cost "+currNode.getPrice());
             if (currWord.equals(endWord))
             {
                 System.out.println("Found!!!!");

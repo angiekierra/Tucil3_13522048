@@ -17,17 +17,22 @@ public class Dictionary {
         return dictionary;
     }
 
-    private void loadDictionary(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    private void loadDictionary(String filePath) 
+    {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) 
+        {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) 
+            {
                 line = line.trim();
                 int length = line.length();
                 Set<String> wordSet = dictionary.getOrDefault(length, new HashSet<>());
                 wordSet.add(line);
                 dictionary.put(length, wordSet);
             }
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             e.printStackTrace();
         }
     }
