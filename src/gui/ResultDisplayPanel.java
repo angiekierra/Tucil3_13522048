@@ -22,7 +22,7 @@ public class ResultDisplayPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Create and add the info panel
@@ -30,13 +30,18 @@ public class ResultDisplayPanel extends JPanel {
         add(infoPanel, gbc);
 
         // Create and add the result display
-        gbc.gridy = 1;
+        // Wrap the result panel in a scroll pane
         JPanel resultPanel = createResultPanel();
-        // add(resultPanel, gbc);
-        JScrollPane resultScrollPane = new JScrollPane(resultPanel);
-        resultScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        resultScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        add(resultScrollPane, gbc);
+        JScrollPane scrollPane = new JScrollPane(resultPanel);
+        // scrollPane.setPreferredSize(new Dimension(600, 800)); // Adjust size as needed
+
+        // Add the scroll pane to the display panel
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        add(scrollPane, gbc);
+
     }
 
     private JPanel createInfoPanel() {
@@ -88,6 +93,7 @@ public class ResultDisplayPanel extends JPanel {
         String previousWord = null;
         // Display each character in a box
         for (String word : solutions) {
+            
             for (int i = 0; i < word.length(); i++) {
                 JLabel label = new JLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER);
                 label.setPreferredSize(new Dimension(50, 50));
@@ -117,7 +123,6 @@ public class ResultDisplayPanel extends JPanel {
             previousWord = word;
             gbc.gridy++;
         }
-
 
         return resultPanel;
     }

@@ -39,13 +39,13 @@ public class WordLadderGUI extends JFrame {
         titlePanel.add(titleLabel);
         gbc.gridx = 0;
         gbc.gridy = yInit;
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Spanning two columns
-        gbc.anchor = GridBagConstraints.CENTER; // Center alignment
+        gbc.gridwidth = 2;
 
         add(titlePanel,gbc);
         
         yInit++;
-        
+        gbc.gridwidth = 1;
+
         startLabel = new JLabel("Start Word:");
         gbc.gridx = 0;
         gbc.gridy = yInit;
@@ -154,7 +154,7 @@ public class WordLadderGUI extends JFrame {
         
         popupFrame.add(resultPanel, BorderLayout.CENTER);
 
-        popupFrame.setSize(400, 400);
+        popupFrame.setSize(700, 800);
         popupFrame.setLocationRelativeTo(this);
         popupFrame.setVisible(true);
     }
