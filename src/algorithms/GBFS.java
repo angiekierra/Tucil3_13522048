@@ -21,9 +21,15 @@ public class GBFS extends Search{
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
             System.out.print("Current Word :" + currWord + " ");
-                        System.out.println("Heuristic cost "+currNode.getPrice());
+            System.out.println("Heuristic cost "+currNode.getPrice());
+
             if (currWord.equals(endWord))
             {
+                if (visited.size()== 0)
+                {
+                    visited.add(currWord);
+                }
+                
                 System.out.println("Found!!!!");
                 return new Result(getPath(currNode),visited.size());
             }
