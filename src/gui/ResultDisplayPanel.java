@@ -1,61 +1,124 @@
 package src.gui;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class ResultDisplayPanel extends JPanel {
-    private JTextArea resultTextArea;
-    private JPanel infoPanel;
-    private JLabel runtimeValueLabel;
-    private JLabel visitedValueLabel;
-    private JLabel lengthValueLabel;
+    private List<String> solutions;
+    private String endWord;
+    private String startWord;
+    private long excecutionTime;
+    private int nodesVisited;
 
-    public ResultDisplayPanel() {
-        setLayout(new BorderLayout());
+    public ResultDisplayPanel(List<String> solutions, long excecutionTime ,String startWord, String endWord, int nodesVisited) {
+        this.solutions = solutions;
+        this.endWord = endWord;
+        this.startWord = startWord;
+        this.excecutionTime = excecutionTime;
+        this.nodesVisited = nodesVisited;
+        setLayout(new GridBagLayout());
 
-        
-        // Info panel
-        infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(3, 2));
-        JLabel runtimeLabel = new JLabel("Runtime:");
-        runtimeValueLabel = new JLabel();
-        JLabel visitedLabel = new JLabel("Visited Nodes:");
-        visitedValueLabel = new JLabel();
-        JLabel lengthLabel = new JLabel("Length of String:");
-        lengthValueLabel = new JLabel();
-        
-        infoPanel.add(runtimeLabel);
-        infoPanel.add(runtimeValueLabel);
-        infoPanel.add(visitedLabel);
-        infoPanel.add(visitedValueLabel);
-        infoPanel.add(lengthLabel);
-        infoPanel.add(lengthValueLabel);
-        add(infoPanel, BorderLayout.NORTH);
-        
-        // Result text area
-        resultTextArea = new JTextArea();
-        resultTextArea.setEditable(false); 
-        JScrollPane scrollPane = new JScrollPane(resultTextArea);
-        add(scrollPane, BorderLayout.CENTER);
-        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Create and add the info panel
+        JPanel infoPanel = createInfoPanel();
+        add(infoPanel, gbc);
+
+        // Create and add the result display
+        gbc.gridy = 1;
+        JPanel resultPanel = createResultPanel();
+        // add(resultPanel, gbc);
+        JScrollPane resultScrollPane = new JScrollPane(resultPanel);
+        resultScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        resultScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        add(resultScrollPane, gbc);
     }
 
-    // Method to display the results in the text area
-    public void displayResults(List<String> results) {
-        StringBuilder sb = new StringBuilder();
-        for (String word : results) {
-            sb.append(word).append("\n");
+    private JPanel createInfoPanel() {
+        JPanel infoPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.gridwidth = startWord.length();
+        int yInit = 0;
+
+        
+        JLabel resultTitleLabel = new JLabel("Result");
+        gbc.gridx = 0;
+        gbc.gridy = yInit;
+        infoPanel.add(resultTitleLabel,gbc);
+
+        yInit++;
+
+        JLabel excecutionTimeLabel = new JLabel("Execution Time: " + excecutionTime + " ms");
+        gbc.gridx = 0;
+        gbc.gridy = yInit;
+        infoPanel.add(excecutionTimeLabel,gbc);
+
+        yInit++;
+
+        JLabel numPathLabel = new JLabel("Total length of " + solutions.size() + " paths");
+        gbc.gridx = 0;
+        gbc.gridy = yInit;
+        infoPanel.add(numPathLabel,gbc);
+
+        yInit++;
+
+        JLabel nodesLabel = new JLabel("Visited " + nodesVisited + " number of nodes");
+        gbc.gridx = 0;
+        gbc.gridy = yInit;
+        infoPanel.add(nodesLabel,gbc); 
+        return infoPanel;
+    }
+
+    private JPanel createResultPanel() {
+        JPanel resultPanel = new JPanel(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(2, 2, 2, 2);
+
+        String previousWord = null;
+        // Display each character in a box
+        for (String word : solutions) {
+            for (int i = 0; i < word.length(); i++) {
+                JLabel label = new JLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER);
+                label.setPreferredSize(new Dimension(50, 50));
+                label.setOpaque(true);
+
+                // Set background color based on whether the character matches the corresponding character in the end word
+                if (word.length() == endWord.length() && word.charAt(i) == endWord.charAt(i)) {
+            
+                    label.setBackground(Color.GREEN);
+                } else {
+                    label.setBackground(Color.RED);
+                }
+
+                if (previousWord != null)
+                {
+                    if (word.charAt(i) != previousWord.charAt(i)) {
+                        label.setBorder(BorderFactory.createLineBorder(Color.YELLOW,3));
+                    }
+    
+                }
+
+
+                gbc.gridx = i;
+                resultPanel.add(label, gbc);
+            }
+
+            previousWord = word;
+            gbc.gridy++;
         }
-        resultTextArea.setText(sb.toString());
-    }
 
-    // Method to update the additional information
-    public void updateInfo(long runtime, int visitedNodes, int lengthOfString) {
-        runtimeValueLabel.setText(String.valueOf(runtime));
-        visitedValueLabel.setText(String.valueOf(visitedNodes));
-        lengthValueLabel.setText(String.valueOf(lengthOfString));
+
+        return resultPanel;
     }
 }
- 

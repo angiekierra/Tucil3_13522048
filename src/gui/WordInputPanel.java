@@ -14,7 +14,7 @@ public class WordInputPanel extends JPanel {
     private JTextField endWordField;
     private JComboBox<String> algorithmComboBox;
     private JButton calculateButton;
-    private ResultDisplayPanel result;
+    private ResultDisplayPanelt result;
     private Dictionary dictionary;
 
     public WordInputPanel() {
@@ -68,7 +68,7 @@ public class WordInputPanel extends JPanel {
                 }
 
                 String selectedAlgorithm = (String) algorithmComboBox.getSelectedItem();
-                result = new ResultDisplayPanel();
+                result = new ResultDisplayPanelt();
                 Search test = new AStar();
                 List<String> res =  test.findSolution(startWord, endWord,dictionary).getSolution();
 
