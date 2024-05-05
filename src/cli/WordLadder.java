@@ -1,4 +1,4 @@
-package src;
+package src.cli;
 
 import java.util.*;
 
@@ -14,6 +14,7 @@ public class WordLadder {
     private String startWord;
     private String endWord;
     private long excecutionTime;
+    private long memoryUsed;
     private Dictionary dictionary;
     private Result result;
 
@@ -26,20 +27,37 @@ public class WordLadder {
         scanner.close();
 
         this.excecutionTime = 0;
-        this.dictionary = new Dictionary("../dictionary.txt");
+        this.dictionary = new Dictionary("src/mapped_dictionary.txt");
         this.result = new Result(new ArrayList<>(),0);
+        this.memoryUsed = 0;
     }
 
     public void printInfo()
     {
+        String algorithm;
+        switch (algorithmID) {
+            case 1:
+                algorithm = "A*";
+                break;
+            case 2:
+                algorithm = "UCS";
+                break;
+            case 3:
+                algorithm = "GBFS";
+                break;
+            default:
+                algorithm = "NULL";
 
-        System.out.println(algorithmID);
-        System.out.println(startWord);
-        System.out.println(endWord);
-        System.out.println(excecutionTime);
-        System.out.println(result.getNumOfVisitedNodes());
-        System.out.println(result.getSolution());
-        System.out.println(result.getSolution().size());
+        }
+
+        System.out.println("Choosen Algoritm: " + algorithm);
+        System.out.println("Start word: " + startWord);
+        System.out.println("End word: " + endWord);
+        System.out.println("Execution time: " + excecutionTime + " ms");
+        System.out.println("Num of visited nodes: " + result.getNumOfVisitedNodes());
+        System.out.println("Solution: " + result.getSolution());
+        System.out.println("Number of paths: " + result.getSolution().size());
+        System.out.println("Memory used: " + memoryUsed + " kb");
     }
 
     public List<String> getSolution()
@@ -62,7 +80,11 @@ public class WordLadder {
     {
         int option;
         while (true) {
-            System.out.println("Choose algorithm (1: A*, 2: UCS, 3: GBFS): ");
+            System.out.println("Choose algorithm: ");
+            System.out.println("1. A* (A Star Algorithm)");
+            System.out.println("2. UCS (Uniform Cost Search Alogrithm)");
+            System.out.println("3. GBFS (Greedy Best First Search Algorithm)");
+            System.out.print("Insert number: ");
             if (scanner.hasNextInt()) {
                 option= scanner.nextInt();
                 if (option>= 1 && option<= 3) {
@@ -97,34 +119,42 @@ public class WordLadder {
         {
             if (startWord.length() != endWord.length())
             {
-                System.out.println("Your starword and endword length dont match");
+                System.out.println("Your starword and endword lengths don't match");
                 return;
             }
 
             Search search;
-            if (algorithmID == 1)
-            {
-                search = new AStar();
-            } 
-            else if (algorithmID == 2)
-            {
-                search = new UCS();
-            }
-            else if (algorithmID == 3)
-            {
-                search = new GBFS();
-            }
-            else {
-                System.out.println("Invalid algorithm ID");
-                return;
+            switch (algorithmID) {
+                case 1:
+                    search = new AStar();
+                    break;
+                case 2:
+                    search = new UCS();
+                    break;
+                case 3:
+                    search = new GBFS();
+                    break;
+                default:
+                    System.out.println("Invalid algorithm ID");
+                    return;
             }
 
+            // Getting memory before the search method
+            long startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
+            // Gettinig execution time
             long start = System.currentTimeMillis();
             result = search.findSolution(startWord, endWord, dictionary);
             long end = System.currentTimeMillis();
 
             this.excecutionTime = end - start;
             
+             // Getting memory after search
+            long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            long memoryUsed = endMemory - startMemory;
+
+            // Converting to KB
+            this.memoryUsed = memoryUsed / (1024);
 
         }
         else

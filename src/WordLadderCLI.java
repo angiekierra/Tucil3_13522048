@@ -1,7 +1,8 @@
 package src;
 
+import src.cli.WordLadder;
 
-public class Main {
+public class WordLadderCLI {
     public static void main(String[] args)
     {
         WordLadder game = new WordLadder();

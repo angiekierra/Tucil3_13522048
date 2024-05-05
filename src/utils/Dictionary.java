@@ -1,71 +1,36 @@
 package src.utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Dictionary {
-    private Map<Integer, Set<String>> dictionary;
+    private Map<String, List<String>> dictionary;
 
     public Dictionary(String filePath) {
         dictionary = new HashMap<>();
         loadDictionary(filePath);
     }
 
-    public Map<Integer, Set<String>> getDictionary() {
+    public Map<String, List<String>> getDictionary() {
         return dictionary;
     }
 
-    private void loadDictionary(String filePath) 
-    {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) 
-        {
+    public void loadDictionary(String filePath) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            while ((line = br.readLine()) != null) 
-            {
+            while ((line = br.readLine()) != null) {
                 line = line.trim();
-                int length = line.length();
-                Set<String> wordSet = dictionary.getOrDefault(length, new HashSet<>());
-                wordSet.add(line);
-                dictionary.put(length, wordSet);
+                String[] parts = line.split(" : ");
+                String word = parts[0];
+                List<String> children = new ArrayList<>(Arrays.asList(parts[1].substring(1, parts[1].length() - 1).split(", ")));
+                dictionary.put(word, children);
             }
-        } 
-        catch (IOException e) 
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public boolean validWord(String word) {
-        int length = word.length();
-        Set<String> wordSet = dictionary.get(length);
-        return wordSet != null && wordSet.contains(word);
+        return dictionary.containsKey(word);
     }
-
-    public boolean isIn(String word, int length)
-    {
-        Set<String> wordSet = dictionary.get(length);
-        return wordSet.contains(word);
-    }
-    
-
-    // public static void main(String[] args) {
-    //     Dictionary dictionary = new Dictionary("dictionary.txt");
-    //     Map<Integer, Set<String>> wordGroups = dictionary.getDictionary();
-    //     for (Map.Entry<Integer, Set<String>> entry : wordGroups.entrySet()) {
-    //         int length = entry.getKey();
-    //         if (length == 3)
-    //         {
-    //             Set<String> words = entry.getValue();
-    //             System.out.println("Words with length " + length + ": " + words);
-
-    //         }
-    //     }
-
-    //     System.out.println(dictionary.validWord("bacot"));
-    //     System.out.println(dictionary.validWord("beast"));
-    //     System.out.println(dictionary.isIn("beast",5));
-    //     System.out.println(dictionary.isIn("beast",5));
-    // }
 }

@@ -12,7 +12,6 @@ public class UCS extends Search{
 
     public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
-        System.out.println("UCS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
         Map<String,Integer> costMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
@@ -25,24 +24,29 @@ public class UCS extends Search{
 
             if (currWord.equals(endWord))
             {
-                System.out.println("Found!!!!");
+                visited.add(currWord);
                 return new Result(getPath(currNode),visited.size());
             }
 
             if (!visited.contains(currWord))
             {
                 visited.add(currWord);
-                for (String child : getChild(currWord, dictionary))
+                List<String> children = dictionary.getDictionary().get(currWord);
+
+                if (children != null)
                 {
-
-                    if (!visited.contains(child))
+                    for (String child : children)
                     {
-                        int cost = currNode.getPrice() + 1;
-
-                        if (!costMap.containsKey(child) || cost < costMap.get(child))
+    
+                        if (!visited.contains(child))
                         {
-                            costMap.put(child,cost);
-                            queue.offer(new Node(child, currNode, cost));
+                            int cost = currNode.getPrice() + 1;
+    
+                            if (!costMap.containsKey(child) || cost < costMap.get(child))
+                            {
+                                costMap.put(child,cost);
+                                queue.offer(new Node(child, currNode, cost));
+                            }
                         }
                     }
                 }
