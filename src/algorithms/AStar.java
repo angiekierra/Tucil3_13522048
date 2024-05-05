@@ -31,33 +31,38 @@ public class AStar extends Search {
             if (!visited.contains(currWord))
             {
                 visited.add(currWord);
-                for (String child : getChild(currWord, dictionary))
+                List<String> children = dictionary.getDictionary().get(currWord);
+                if (children != null)
                 {
-                    if (!visited.contains(child))
+
+                    for (String child : children)
                     {
-
-                        int cost = costMap.get(currWord) + 1;
-
-                        if (!costMap.containsKey(child) || cost < costMap.get(child))
+                        if (!visited.contains(child))
                         {
-                            costMap.put(child, cost);
-
-                            int heuristicCost;
-
-                            if (heuristicsMap.containsKey(child))
-                            {
-                                heuristicCost = heuristicsMap.get(child); 
-                            } else
-                            {
-                                heuristicCost = getHeuristic(child, endWord);
-                                heuristicsMap.put(child, heuristicCost);
-                            }
-                            
-                            int fn = cost + heuristicCost;
-                            queue.offer(new Node(child, currNode, fn));
-                        }
-
     
+                            int cost = costMap.get(currWord) + 1;
+    
+                            if (!costMap.containsKey(child) || cost < costMap.get(child))
+                            {
+                                costMap.put(child, cost);
+    
+                                int heuristicCost;
+    
+                                if (heuristicsMap.containsKey(child))
+                                {
+                                    heuristicCost = heuristicsMap.get(child); 
+                                } else
+                                {
+                                    heuristicCost = getHeuristic(child, endWord);
+                                    heuristicsMap.put(child, heuristicCost);
+                                }
+                                
+                                int fn = cost + heuristicCost;
+                                queue.offer(new Node(child, currNode, fn));
+                            }
+    
+        
+                        }
                     }
                 }
             }

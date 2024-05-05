@@ -10,13 +10,15 @@ public class ResultDisplayPanel extends JPanel {
     private String endWord;
     private String startWord;
     private long excecutionTime;
+    private long memoryUsed;
     private int nodesVisited;
 
-    public ResultDisplayPanel(List<String> solutions, long excecutionTime ,String startWord, String endWord, int nodesVisited) {
+    public ResultDisplayPanel(List<String> solutions, long excecutionTime ,String startWord, String endWord, int nodesVisited, long memory) {
         this.solutions = solutions;
         this.endWord = endWord;
         this.startWord = startWord;
         this.excecutionTime = excecutionTime;
+        this.memoryUsed = memory;
         this.nodesVisited = nodesVisited;
 
         setLayout(new GridBagLayout());
@@ -112,6 +114,17 @@ public class ResultDisplayPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = yInit;
         infoPanel.add(nodesLabel,gbc);
+        
+        yInit++;
+
+        JLabel memoryLabel = new JLabel("Total of " + memoryUsed + " kb of memory used");
+        memoryLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.ITALIC,14));
+        memoryLabel.setForeground(Color.WHITE);
+        gbc.gridx = 0;
+        gbc.gridy = yInit;
+        infoPanel.add(memoryLabel,gbc);
+
+
         infoPanel.setBackground(Color.decode(WordLadderGUI.colpal[3]));
         return infoPanel;
     }

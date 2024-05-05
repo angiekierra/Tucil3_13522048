@@ -25,7 +25,7 @@ public class WordLadderGUI extends JFrame {
     public static String[] colpal = {"#6ad09d","#e27eab","#f9d8e0","#eb954a", "#ffeab4"}; // TURQOISE,  DARK PINK, LIGHT PINK, ORANGE,LIGHT ORANGE
 
     public WordLadderGUI() {
-        dictionary = new src.utils.Dictionary("src/dictionary.txt");
+        dictionary = new src.utils.Dictionary("src/mapped_dictionary.txt");
     
         try {
             customFont = loadCustomFont("src/gui/Font.ttf");
@@ -104,7 +104,7 @@ public class WordLadderGUI extends JFrame {
         gbc.gridy = yInit;
         mainPanel.add(algorithmLabel, gbc);
     
-        String[] algorithms = {"UCS", "GBFS", "A*"};
+        String[] algorithms = {"A*", "UCS", "GBFS"};
         algorithmComboBox = new JComboBox<>(algorithms);
         algorithmComboBox.setFont(customFont.deriveFont(Font.PLAIN,14));
         gbc.gridx = 1;
@@ -157,6 +157,9 @@ public class WordLadderGUI extends JFrame {
                     search = new GBFS();
                 }
     
+                // Getting memory before the search method
+                long startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
                 long start = System.currentTimeMillis();
                 Result result = search.findSolution(startWord, endWord, dictionary);
                 long end = System.currentTimeMillis();
@@ -166,7 +169,14 @@ public class WordLadderGUI extends JFrame {
                 List<String> solutions = result.getSolution();
                 int nodesVisited = result.getNumOfVisitedNodes();
     
-                showResultPopup(solutions, excecutionTime, startWord, endWord, nodesVisited);
+                 // Getting memory after search
+                long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                long memoryUsed = endMemory - startMemory;
+
+                // Converting to KB
+                long memoryUsedKB = memoryUsed / (1024);
+
+                showResultPopup(solutions, excecutionTime, startWord, endWord, nodesVisited,memoryUsedKB);
             } else {
                 JOptionPane.showMessageDialog(WordLadderGUI.this, "Your startword or endword don't exist in the dictionary. Please input a valid word", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -179,17 +189,17 @@ public class WordLadderGUI extends JFrame {
         return !input.isEmpty() && !input.contains(" ");
     }
 
-    private void showResultPopup(List<String> solutions, long excecutionTime ,String startWord, String endWord, int nodesVisited) {
+    private void showResultPopup(List<String> solutions, long excecutionTime ,String startWord, String endWord, int nodesVisited, long memory) {
         JFrame popupFrame = new JFrame("Word Ladder Result");
         popupFrame.setLayout(new BorderLayout());
 
         // Create and add the result display panel
-        ResultDisplayPanel resultPanel = new ResultDisplayPanel(solutions,excecutionTime,startWord,endWord,nodesVisited);
+        ResultDisplayPanel resultPanel = new ResultDisplayPanel(solutions,excecutionTime,startWord,endWord,nodesVisited, memory);
         resultPanel.setFont(customFont);
         
         popupFrame.add(resultPanel, BorderLayout.CENTER);
 
-        popupFrame.setSize(700, 800);
+        popupFrame.setSize(700, 1000);
         popupFrame.setLocationRelativeTo(this);
         popupFrame.setVisible(true);
     }

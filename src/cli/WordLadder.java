@@ -14,6 +14,7 @@ public class WordLadder {
     private String startWord;
     private String endWord;
     private long excecutionTime;
+    private long memoryUsed;
     private Dictionary dictionary;
     private Result result;
 
@@ -26,8 +27,9 @@ public class WordLadder {
         scanner.close();
 
         this.excecutionTime = 0;
-        this.dictionary = new src.utils.Dictionary("../src/dictionary.txt");
+        this.dictionary = new Dictionary("src/mapped_dictionary.txt");
         this.result = new Result(new ArrayList<>(),0);
+        this.memoryUsed = 0;
     }
 
     public void printInfo()
@@ -55,6 +57,7 @@ public class WordLadder {
         System.out.println("Num of visited nodes: " + result.getNumOfVisitedNodes());
         System.out.println("Solution: " + result.getSolution());
         System.out.println("Number of paths: " + result.getSolution().size());
+        System.out.println("Memory used: " + memoryUsed + " kb");
     }
 
     public List<String> getSolution()
@@ -81,7 +84,7 @@ public class WordLadder {
             System.out.println("1. A* (A Star Algorithm)");
             System.out.println("2. UCS (Uniform Cost Search Alogrithm)");
             System.out.println("3. GBFS (Greedy Best First Search Algorithm)");
-
+            System.out.print("Insert number: ");
             if (scanner.hasNextInt()) {
                 option= scanner.nextInt();
                 if (option>= 1 && option<= 3) {
@@ -136,12 +139,22 @@ public class WordLadder {
                     return;
             }
 
+            // Getting memory before the search method
+            long startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
+            // Gettinig execution time
             long start = System.currentTimeMillis();
             result = search.findSolution(startWord, endWord, dictionary);
             long end = System.currentTimeMillis();
 
             this.excecutionTime = end - start;
             
+             // Getting memory after search
+            long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            long memoryUsed = endMemory - startMemory;
+
+            // Converting to KB
+            this.memoryUsed = memoryUsed / (1024);
 
         }
         else

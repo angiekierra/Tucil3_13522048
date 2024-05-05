@@ -31,17 +31,22 @@ public class UCS extends Search{
             if (!visited.contains(currWord))
             {
                 visited.add(currWord);
-                for (String child : getChild(currWord, dictionary))
+                List<String> children = dictionary.getDictionary().get(currWord);
+
+                if (children != null)
                 {
-
-                    if (!visited.contains(child))
+                    for (String child : children)
                     {
-                        int cost = currNode.getPrice() + 1;
-
-                        if (!costMap.containsKey(child) || cost < costMap.get(child))
+    
+                        if (!visited.contains(child))
                         {
-                            costMap.put(child,cost);
-                            queue.offer(new Node(child, currNode, cost));
+                            int cost = currNode.getPrice() + 1;
+    
+                            if (!costMap.containsKey(child) || cost < costMap.get(child))
+                            {
+                                costMap.put(child,cost);
+                                queue.offer(new Node(child, currNode, cost));
+                            }
                         }
                     }
                 }

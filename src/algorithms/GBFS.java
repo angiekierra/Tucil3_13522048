@@ -30,21 +30,26 @@ public class GBFS extends Search{
             if (!visited.contains(currWord))
             {
                 visited.add(currWord);
-                for (String child : getChild(currWord, dictionary))
+                List<String> children = dictionary.getDictionary().get(currWord);
+                if (children != null)
                 {
-                    if (!visited.contains(child))
-                    {
-                        int heuristicCost;
 
-                        if (heuristicsMap.containsKey(child))
+                    for (String child :children)
+                    {
+                        if (!visited.contains(child))
                         {
-                            heuristicCost = heuristicsMap.get(child); 
-                        } else
-                        {
-                            heuristicCost = getHeuristic(child, endWord);
-                            heuristicsMap.put(child, heuristicCost);
+                            int heuristicCost;
+    
+                            if (heuristicsMap.containsKey(child))
+                            {
+                                heuristicCost = heuristicsMap.get(child); 
+                            } else
+                            {
+                                heuristicCost = getHeuristic(child, endWord);
+                                heuristicsMap.put(child, heuristicCost);
+                            }
+                            queue.add(new Node(child, currNode, heuristicCost));
                         }
-                        queue.add(new Node(child, currNode, heuristicCost));
                     }
                 }
             }

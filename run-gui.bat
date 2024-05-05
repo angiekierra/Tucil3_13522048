@@ -1,19 +1,4 @@
-@echo off
-cls
+javac -d bin src/WordLadderGUI.java
+java -cp bin src/WordLadderGUI
 
-set SOURCE_DIR=src
-set OUTPUT_DIR=bin
-
-echo Compiling Java files in %SOURCE_DIR%...
-javac -d %OUTPUT_DIR% %SOURCE_DIR%\WordLadderGUI.java
-
-if errorlevel 1 (
-    echo Compilation failed.
-    pause
-    exit /b
-)
-
-echo Running...
-cd %OUTPUT_DIR%
-java src/WordLadderGUI
 
