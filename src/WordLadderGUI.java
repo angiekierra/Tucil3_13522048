@@ -49,6 +49,15 @@ public class WordLadderGUI extends JFrame {
     
         int yInit = 0;
     
+        Icon startImg = new ImageIcon("src/gui/img/start.gif");
+        JLabel imgLabel = new JLabel(startImg);
+        gbc.gridx = 0;
+        gbc.gridy = yInit;
+        gbc.gridwidth = 2;
+        mainPanel.add(imgLabel,gbc);
+
+        yInit++;
+
         titleLabel = new JLabel("Word Ladder");
         titleLabel.setFont(customFont.deriveFont(Font.BOLD, 32));
         titleLabel.setForeground(Color.decode(colpal[3]));
@@ -94,7 +103,7 @@ public class WordLadderGUI extends JFrame {
         gbc.gridy = yInit;
         mainPanel.add(algorithmLabel, gbc);
     
-        String[] algorithms = {"A*", "UCS", "GBFS"};
+        String[] algorithms = {"UCS", "GBFS", "A*"};
         algorithmComboBox = new JComboBox<>(algorithms);
         algorithmComboBox.setFont(customFont.deriveFont(Font.PLAIN,14));
         gbc.gridx = 1;

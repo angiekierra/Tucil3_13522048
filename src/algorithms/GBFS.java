@@ -22,13 +22,10 @@ public class GBFS extends Search{
 
             if (currWord.equals(endWord))
             {
-                if (visited.size()== 0)
-                {
-                    visited.add(currWord);
-                }
-
+                visited.add(currWord);
                 return new Result(getPath(currNode),visited.size());
             }
+            
 
             if (!visited.contains(currWord))
             {

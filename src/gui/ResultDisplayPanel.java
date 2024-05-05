@@ -74,6 +74,20 @@ public class ResultDisplayPanel extends JPanel {
         
         yInit++;
         
+
+        if (solutions.size() != 0)
+        {
+
+            Icon foungImg = new ImageIcon("src/gui/img/found.gif");
+            JLabel imgLabel = new JLabel(foungImg);
+            gbc.gridx = 0;
+            gbc.gridy = yInit;
+            infoPanel.add(imgLabel,gbc);
+            
+            yInit++;
+        }
+
+
         JLabel executionTimeLabel = new JLabel("Execution Time: " + excecutionTime + " ms");
         executionTimeLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
         executionTimeLabel.setForeground(Color.WHITE);
@@ -117,12 +131,18 @@ public class ResultDisplayPanel extends JPanel {
         {
             JLabel noResultLabel = new JLabel("No Result Found");
             noResultLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.ITALIC,30));
-            resultPanel.add(noResultLabel);
+            resultPanel.add(noResultLabel,gbc);
+
+            Icon failImg = new ImageIcon("src/gui/img/notFound.gif");
+            JLabel imgLabel = new JLabel(failImg);
+            gbc.gridy = 1;
+            resultPanel.add(imgLabel,gbc);
 
         }
         else
         {
 
+            
             String previousWord = null;
             // Display each character in a box
             for (String word : solutions) {

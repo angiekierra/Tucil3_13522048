@@ -24,6 +24,7 @@ public class UCS extends Search{
 
             if (currWord.equals(endWord))
             {
+                visited.add(currWord);
                 return new Result(getPath(currNode),visited.size());
             }
 

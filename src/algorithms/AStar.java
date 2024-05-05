@@ -24,6 +24,7 @@ public class AStar extends Search {
 
             if (currWord.equals(endWord))
             {
+                visited.add(currWord);
                 return new Result(getPath(currNode),visited.size());
             }
 
