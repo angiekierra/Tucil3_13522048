@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.awt.*;
+import src.WordLadderGUI;
 
 public class RoundedLabel extends JLabel {
 
@@ -16,6 +17,7 @@ public class RoundedLabel extends JLabel {
         this.cornerRadius = cornerRadius;
         this.backgroundColor = backgroundColor;
         setOpaque(false);
+        setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,16));
     }
 
     public void setBackgroundColor(Color backgroundColor) {

@@ -10,7 +10,6 @@ import src.utils.Result;
 public class GBFS extends Search{
     public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
-        System.out.println("GBFS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
         Map<String,Integer> heuristicsMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
@@ -20,8 +19,6 @@ public class GBFS extends Search{
         while (!queue.isEmpty()) {
             Node currNode = queue.poll();
             String currWord = currNode.getWord();
-            System.out.print("Current Word :" + currWord + " ");
-            System.out.println("Heuristic cost "+currNode.getPrice());
 
             if (currWord.equals(endWord))
             {
@@ -29,8 +26,7 @@ public class GBFS extends Search{
                 {
                     visited.add(currWord);
                 }
-                
-                System.out.println("Found!!!!");
+
                 return new Result(getPath(currNode),visited.size());
             }
 

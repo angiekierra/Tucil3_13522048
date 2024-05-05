@@ -10,7 +10,6 @@ import src.utils.Result;
 public class AStar extends Search {
     public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
-        System.out.println("A-STAR");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
         Map<String,Integer> costMap = new HashMap<>();
         Map<String,Integer> heuristicsMap = new HashMap<>();
@@ -25,7 +24,6 @@ public class AStar extends Search {
 
             if (currWord.equals(endWord))
             {
-                System.out.println("Found!!!!");
                 return new Result(getPath(currNode),visited.size());
             }
 

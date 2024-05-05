@@ -25,13 +25,13 @@ public class ResultDisplayPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.insets = new Insets(10, 5, 10, 5);
 
         // Create and add the info panel
         JPanel infoPanel = createInfoPanel();
         add(infoPanel, gbc);
 
-        // Create and add the result display
         // Wrap the result panel in a scroll pane
         JPanel resultPanel = createResultPanel();
         JScrollPane scrollPane = new JScrollPane(resultPanel);
@@ -43,19 +43,22 @@ public class ResultDisplayPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         add(scrollPane, gbc);
 
+        this.setBackground(Color.decode(WordLadderGUI.colpal[3]));
+
     }
 
     private JPanel createInfoPanel() {
         JPanel infoPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(2, 4, 0, 4);
+        gbc.insets = new Insets(-1, 4, -1, 4);
         gbc.gridwidth = startWord.length();
         int yInit = 0;
 
         
         JLabel resultTitleLabel = new JLabel("Result");
         resultTitleLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,28));
+        resultTitleLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = yInit;
         infoPanel.add(resultTitleLabel,gbc);
@@ -64,22 +67,25 @@ public class ResultDisplayPanel extends JPanel {
 
         JLabel inputLabel = new JLabel("from " + startWord + " to " + endWord);
         inputLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,24));
+        inputLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = yInit;
         infoPanel.add(inputLabel,gbc);
-
+        
         yInit++;
-
-        JLabel excecutionTimeLabel = new JLabel("Execution Time: " + excecutionTime + " ms");
-        excecutionTimeLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,20));
+        
+        JLabel executionTimeLabel = new JLabel("Execution Time: " + excecutionTime + " ms");
+        executionTimeLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
+        executionTimeLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = yInit;
-        infoPanel.add(excecutionTimeLabel,gbc);
+        infoPanel.add(executionTimeLabel,gbc);
 
         yInit++;
 
         JLabel numPathLabel = new JLabel("Total length of " + solutions.size() + " paths");
-        numPathLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,20));
+        numPathLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
+        numPathLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = yInit;
         infoPanel.add(numPathLabel,gbc);
@@ -87,15 +93,19 @@ public class ResultDisplayPanel extends JPanel {
         yInit++;
 
         JLabel nodesLabel = new JLabel("Visited " + nodesVisited + " number of nodes");
-        nodesLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,20));
+        nodesLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
+        nodesLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = yInit;
-        infoPanel.add(nodesLabel,gbc); 
+        infoPanel.add(nodesLabel,gbc);
+        infoPanel.setBackground(Color.decode(WordLadderGUI.colpal[3]));
         return infoPanel;
     }
 
     private JPanel createResultPanel() {
         JPanel resultPanel = new JPanel(new GridBagLayout());
+        resultPanel.setBackground(Color.WHITE);
+        resultPanel.setBorder(null);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -124,10 +134,10 @@ public class ResultDisplayPanel extends JPanel {
                     // Set background color based on whether the character matches the corresponding character in the end word
                     if (word.length() == endWord.length() && word.charAt(i) == endWord.charAt(i)) {
                         
-                        label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.GREEN);
+                        label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.decode(WordLadderGUI.colpal[0]));
                         label.setPreferredSize(new Dimension(50, 50));
                     } else {
-                        label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.RED);
+                        label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.decode(WordLadderGUI.colpal[1]));
                         label.setPreferredSize(new Dimension(50, 50));
                     }
     

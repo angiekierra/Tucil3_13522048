@@ -12,7 +12,6 @@ public class UCS extends Search{
 
     public Result findSolution(String startWord, String endWord, Dictionary dictionary)
     {
-        System.out.println("UCS");
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.getPrice()));
         Map<String,Integer> costMap = new HashMap<>();
         Set<String> visited = new HashSet<>();
@@ -25,7 +24,6 @@ public class UCS extends Search{
 
             if (currWord.equals(endWord))
             {
-                System.out.println("Found!!!!");
                 return new Result(getPath(currNode),visited.size());
             }
 
