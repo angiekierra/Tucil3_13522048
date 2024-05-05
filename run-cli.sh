@@ -2,7 +2,7 @@ SOURCE_DIR=src
 OUTPUT_DIR=bin
 
 echo "Compiling Java files in $SOURCE_DIR..."
-javac -d $OUTPUT_DIR $SOURCE_DIR/*.java
+javac -d $OUTPUT_DIR $SOURCE_DIR/WordLadderCLI.java
 
 if [ $? -ne 0 ]; then
     echo "Compilation failed."
@@ -11,6 +11,6 @@ fi
 
 echo "Running..."
 cd $OUTPUT_DIR
-java src/Main
+java src/WordLadderCLI
 
 exit 0

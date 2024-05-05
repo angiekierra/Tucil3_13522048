@@ -39,6 +39,7 @@ public class WordLadderGUI extends JFrame {
     
         JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(Color.decode(colpal[4]));
+        mainPanel.setFocusable(true);
 
         Border border = BorderFactory.createLineBorder(Color.decode(colpal[3]), 10);
         mainPanel.setBorder(border);

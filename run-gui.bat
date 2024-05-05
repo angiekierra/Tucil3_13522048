@@ -5,7 +5,7 @@ set SOURCE_DIR=src
 set OUTPUT_DIR=bin
 
 echo Compiling Java files in %SOURCE_DIR%...
-javac -d %OUTPUT_DIR% %SOURCE_DIR%\*.java
+javac -d %OUTPUT_DIR% %SOURCE_DIR%\WordLadderGUI.java
 
 if errorlevel 1 (
     echo Compilation failed.
@@ -15,5 +15,5 @@ if errorlevel 1 (
 
 echo Running...
 cd %OUTPUT_DIR%
-java src/Main
+java src/WordLadderGUI
 
