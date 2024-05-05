@@ -21,6 +21,7 @@ public class ResultDisplayPanel extends JPanel {
         this.memoryUsed = memory;
         this.nodesVisited = nodesVisited;
 
+        // Set grid bag layouting
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -45,10 +46,12 @@ public class ResultDisplayPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         add(scrollPane, gbc);
 
+        // Set bg color
         this.setBackground(Color.decode(WordLadderGUI.colpal[3]));
 
     }
 
+    // Method for creating info panel
     private JPanel createInfoPanel() {
         JPanel infoPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -57,7 +60,7 @@ public class ResultDisplayPanel extends JPanel {
         gbc.gridwidth = startWord.length();
         int yInit = 0;
 
-        
+        // Add result title
         JLabel resultTitleLabel = new JLabel("Result");
         resultTitleLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,28));
         resultTitleLabel.setForeground(Color.WHITE);
@@ -67,6 +70,7 @@ public class ResultDisplayPanel extends JPanel {
 
         yInit++;
 
+        // Add starting and end word title
         JLabel inputLabel = new JLabel("from " + startWord + " to " + endWord);
         inputLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,24));
         inputLabel.setForeground(Color.WHITE);
@@ -76,7 +80,7 @@ public class ResultDisplayPanel extends JPanel {
         
         yInit++;
         
-
+        // Add gif only if solution is found
         if (solutions.size() != 0)
         {
 
@@ -89,7 +93,7 @@ public class ResultDisplayPanel extends JPanel {
             yInit++;
         }
 
-
+        // Add label for execution time
         JLabel executionTimeLabel = new JLabel("Execution Time: " + excecutionTime + " ms");
         executionTimeLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
         executionTimeLabel.setForeground(Color.WHITE);
@@ -99,6 +103,7 @@ public class ResultDisplayPanel extends JPanel {
 
         yInit++;
 
+        // Add lable for length of path
         JLabel numPathLabel = new JLabel("Total length of " + solutions.size() + " paths");
         numPathLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
         numPathLabel.setForeground(Color.WHITE);
@@ -108,6 +113,7 @@ public class ResultDisplayPanel extends JPanel {
 
         yInit++;
 
+        // Add lable for number of visited nodes
         JLabel nodesLabel = new JLabel("Visited " + nodesVisited + " number of nodes");
         nodesLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
         nodesLabel.setForeground(Color.WHITE);
@@ -117,18 +123,20 @@ public class ResultDisplayPanel extends JPanel {
         
         yInit++;
 
-        JLabel memoryLabel = new JLabel("Total of " + memoryUsed + " kb of memory used");
+        // Add label for memory usage
+        JLabel memoryLabel = new JLabel("Used total of " + memoryUsed + " kb memory");
         memoryLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.ITALIC,14));
         memoryLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = yInit;
         infoPanel.add(memoryLabel,gbc);
 
-
+        // Set panel bg
         infoPanel.setBackground(Color.decode(WordLadderGUI.colpal[3]));
         return infoPanel;
     }
 
+    // Method for creating result panel
     private JPanel createResultPanel() {
         JPanel resultPanel = new JPanel(new GridBagLayout());
         resultPanel.setBackground(Color.WHITE);
@@ -140,12 +148,15 @@ public class ResultDisplayPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(2, 4, 2, 4);
 
+        // If no solution
         if (solutions.size() == 0)
         {
+            // Add no solution label
             JLabel noResultLabel = new JLabel("No Result Found");
             noResultLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.ITALIC,30));
             resultPanel.add(noResultLabel,gbc);
 
+            // Add pikachu gif
             Icon failImg = new ImageIcon("src/gui/img/notFound.gif");
             JLabel imgLabel = new JLabel(failImg);
             gbc.gridy = 1;
@@ -154,17 +165,18 @@ public class ResultDisplayPanel extends JPanel {
         }
         else
         {
-
-            
+            // Store prev word
             String previousWord = null;
+
             // Display each character in a box
             for (String word : solutions) {
                 
                 for (int i = 0; i < word.length(); i++) {
+                    // Create a label for each character
                     JLabel label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.WHITE);
-                    // label.setOpaque(true);
                     
-                    // Set background color based on whether the character matches the corresponding character in the end word
+                    
+                    // Set background color based on whether the character matches the character in the end word
                     if (word.length() == endWord.length() && word.charAt(i) == endWord.charAt(i)) {
                         
                         label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.decode(WordLadderGUI.colpal[0]));
@@ -173,7 +185,8 @@ public class ResultDisplayPanel extends JPanel {
                         label = new RoundedLabel(String.valueOf(word.charAt(i)), SwingConstants.CENTER,8, Color.decode(WordLadderGUI.colpal[1]));
                         label.setPreferredSize(new Dimension(50, 50));
                     }
-    
+                    
+                    // Set a border to mark the character changes
                     if (previousWord != null)
                     {
                         if (word.charAt(i) != previousWord.charAt(i)) {
@@ -182,11 +195,12 @@ public class ResultDisplayPanel extends JPanel {
         
                     }
     
-    
+                    // Move the layouting accordingly
                     gbc.gridx = i;
                     resultPanel.add(label, gbc);
                 }
-    
+                
+                // Move into next row and storing prev word
                 previousWord = word;
                 gbc.gridy++;
             }

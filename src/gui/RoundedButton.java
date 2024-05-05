@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// Custom class for rounded button
 public class RoundedButton extends JButton {
 
     private int cornerRadius;
     private Color defaultColor;
     private Color hoverColor;
+
 
     public RoundedButton(String text, Color defaultColor, Color hoverColor, int cornerRadius) {
         super(text);
@@ -19,6 +21,7 @@ public class RoundedButton extends JButton {
         init();
     }
 
+    // Disabling default config and making it change color  on hover
     private void init() {
         setContentAreaFilled(false);
         setFocusPainted(false);
@@ -38,12 +41,14 @@ public class RoundedButton extends JButton {
         });
     }
 
+    // Method to set bg
     @Override
     public void addNotify() {
         super.addNotify();
         setBackground(defaultColor);
     }
 
+    // Method to create the rounded look
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -55,11 +60,13 @@ public class RoundedButton extends JButton {
         g2.dispose();
     }
 
+    // Disabling default border
     @Override
     protected void paintBorder(Graphics g) {
         // Do not paint border
     }
 
+    // Setter
     public void setDefaultColor(Color defaultColor) {
         this.defaultColor = defaultColor;
     }

@@ -6,12 +6,14 @@ import javax.swing.border.Border;
 import java.awt.*;
 import src.WordLadderGUI;
 
+// Class for crating rounded square labels for each char in word
 public class RoundedLabel extends JLabel {
 
     private int cornerRadius;
     private Color backgroundColor;
     private Border border;
 
+    // Constructor
     public RoundedLabel(String text, int alignment, int cornerRadius, Color backgroundColor) {
         super(text, alignment);
         this.cornerRadius = cornerRadius;
@@ -20,11 +22,13 @@ public class RoundedLabel extends JLabel {
         setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,16));
     }
 
+    // Setter
     public void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
         repaint(); // Trigger repaint to apply the new color
     }
 
+    // Method to create the rounded look
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -35,7 +39,7 @@ public class RoundedLabel extends JLabel {
         g2d.dispose();
     }
 
-   
+   // To add border
     @Override
     protected void paintBorder(Graphics g) {
         super.paintBorder(g);

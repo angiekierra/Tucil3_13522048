@@ -3,9 +3,11 @@ package src.utils;
 import java.io.*;
 import java.util.*;
 
+// Class for mapped dictionary
 public class Dictionary {
     private Map<String, List<String>> dictionary;
 
+    // Load dictionary from txt to map
     public Dictionary(String filePath) {
         dictionary = new HashMap<>();
         loadDictionary(filePath);
@@ -15,6 +17,7 @@ public class Dictionary {
         return dictionary;
     }
 
+    // Method for reading the txt and make into map
     public void loadDictionary(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -30,6 +33,7 @@ public class Dictionary {
         }
     }
 
+    // Method for checking a word is in the dictionary or not
     public boolean validWord(String word) {
         return dictionary.containsKey(word);
     }

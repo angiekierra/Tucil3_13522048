@@ -3,9 +3,11 @@ package src.gui;
 import javax.swing.*;
 import java.awt.*;
 
+// Class for custom rounded text input
 public class RoundedTextField extends JTextField {
     private int cornerRadius;
 
+    // Constructor , disabling default config
     public RoundedTextField(int columns, int cornerRadius) {
         super(columns);
         this.cornerRadius = cornerRadius;
@@ -13,6 +15,7 @@ public class RoundedTextField extends JTextField {
         setBorder(BorderFactory.createEmptyBorder(5, 10, 8, 10)); // Add padding
     }
 
+    // Method to create the rounded look
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();

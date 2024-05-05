@@ -2,6 +2,7 @@ package src.utils;
 
 import java.util.*;
 
+// Class for storing result
 public class Result {
     private List<String> solution;
     private int numOfVisitedNodes;

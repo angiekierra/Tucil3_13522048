@@ -9,6 +9,7 @@ import src.algorithms.UCS;
 import src.utils.Dictionary;
 import src.utils.Result;
 
+// Class for running the game in CLI
 public class WordLadder {
     private int algorithmID;
     private String startWord;
@@ -18,6 +19,7 @@ public class WordLadder {
     private Dictionary dictionary;
     private Result result;
 
+    // Getting inputs
     public WordLadder()
     {
         Scanner scanner = new Scanner(System.in);
@@ -32,6 +34,7 @@ public class WordLadder {
         this.memoryUsed = 0;
     }
 
+    // Printing resutls
     public void printInfo()
     {
         String algorithm;
@@ -60,6 +63,8 @@ public class WordLadder {
         System.out.println("Memory used: " + memoryUsed + " kb");
     }
 
+    // Getters
+
     public List<String> getSolution()
     {
         return this.result.getSolution();
@@ -76,6 +81,7 @@ public class WordLadder {
         return this.excecutionTime;
     }
 
+    // Method for validating inputs for choosing algorithm
     private int getValidAlgorithm(Scanner scanner)
     {
         int option;
@@ -85,6 +91,8 @@ public class WordLadder {
             System.out.println("2. UCS (Uniform Cost Search Alogrithm)");
             System.out.println("3. GBFS (Greedy Best First Search Algorithm)");
             System.out.print("Insert number: ");
+
+            // Making sure the input is an integer from 1 to 3
             if (scanner.hasNextInt()) {
                 option= scanner.nextInt();
                 if (option>= 1 && option<= 3) {
@@ -99,12 +107,14 @@ public class WordLadder {
         return option;
     }
 
+    // Method for making sure the input is only one word
     private String getValidWord(Scanner scanner, String prompt)
     {
         String word;
     while (true) {
         System.out.print(prompt);
         word = scanner.next().toLowerCase();
+        // Making sure it's not alphanumeric and it is only one word
         if (word.matches("[a-zA-Z]+") && (scanner.hasNextLine() && scanner.nextLine().trim().isEmpty())) {
             break;
         }
@@ -113,16 +123,19 @@ public class WordLadder {
     return word;
     }
 
+    // Method for executing the program
     public void run()
     {   
         if (dictionary.validWord(startWord) && dictionary.validWord(endWord))
         {
+            // If the words length don't match
             if (startWord.length() != endWord.length())
             {
                 System.out.println("Your starword and endword lengths don't match");
                 return;
             }
 
+            // Creating search objects
             Search search;
             switch (algorithmID) {
                 case 1:
@@ -142,7 +155,7 @@ public class WordLadder {
             // Getting memory before the search method
             long startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-            // Gettinig execution time
+            // Getting execution time & finding the solution
             long start = System.currentTimeMillis();
             result = search.findSolution(startWord, endWord, dictionary);
             long end = System.currentTimeMillis();
@@ -159,6 +172,7 @@ public class WordLadder {
         }
         else
         { 
+            //If word not in dicitonary
             System.out.println("Your input is not in the dictionary");
             return;
         }

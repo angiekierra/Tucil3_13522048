@@ -1,5 +1,6 @@
 package src.utils;
 
+// Class for making nodes
 public class Node {
     private String word;
     private Node parent;
@@ -9,7 +10,7 @@ public class Node {
     {
         this.word = word;
         this.parent = parent;
-        this.price = price;
+        this.price = price; 
     }
 
     public String getWord()
