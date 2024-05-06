@@ -11,7 +11,6 @@ public class RoundedLabel extends JLabel {
 
     private int cornerRadius;
     private Color backgroundColor;
-    private Border border;
 
     // Constructor
     public RoundedLabel(String text, int alignment, int cornerRadius, Color backgroundColor) {
@@ -20,12 +19,6 @@ public class RoundedLabel extends JLabel {
         this.backgroundColor = backgroundColor;
         setOpaque(false);
         setFont(WordLadderGUI.customFont.deriveFont(Font.BOLD,16));
-    }
-
-    // Setter
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-        repaint(); // Trigger repaint to apply the new color
     }
 
     // Method to create the rounded look
@@ -39,20 +32,4 @@ public class RoundedLabel extends JLabel {
         g2d.dispose();
     }
 
-   // To add border
-    @Override
-    protected void paintBorder(Graphics g) {
-        super.paintBorder(g);
-    }
-
-    @Override
-    public Border getBorder() {
-        return border;
-    }
-
-    @Override
-    public void setBorder(Border border) {
-        this.border = border;
-        super.setBorder(border);
-    }
 }

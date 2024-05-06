@@ -9,15 +9,15 @@ public class ResultDisplayPanel extends JPanel {
     private List<String> solutions;
     private String endWord;
     private String startWord;
-    private long excecutionTime;
+    private long executionTime;
     private long memoryUsed;
     private int nodesVisited;
 
-    public ResultDisplayPanel(List<String> solutions, long excecutionTime ,String startWord, String endWord, int nodesVisited, long memory) {
+    public ResultDisplayPanel(List<String> solutions, long executionTime ,String startWord, String endWord, int nodesVisited, long memory) {
         this.solutions = solutions;
         this.endWord = endWord;
         this.startWord = startWord;
-        this.excecutionTime = excecutionTime;
+        this.executionTime = executionTime;
         this.memoryUsed = memory;
         this.nodesVisited = nodesVisited;
 
@@ -94,7 +94,7 @@ public class ResultDisplayPanel extends JPanel {
         }
 
         // Add label for execution time
-        JLabel executionTimeLabel = new JLabel("Execution Time: " + excecutionTime + " ms");
+        JLabel executionTimeLabel = new JLabel("Execution Time: " + executionTime + " ms");
         executionTimeLabel.setFont(WordLadderGUI.customFont.deriveFont(Font.PLAIN,18));
         executionTimeLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;

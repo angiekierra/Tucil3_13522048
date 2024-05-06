@@ -58,6 +58,14 @@ public class MapDictionary {
                 }
             }
         }
+        Collections.sort(children);
         return children;
+    }
+
+    public static void main(String[] args)
+    {
+        MapDictionary map = new MapDictionary();
+        map.loadDictionary("src/utils/dictionary.txt");
+        map.mapAndWrite("mapped_sorted.txt");
     }
 }

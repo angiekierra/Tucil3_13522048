@@ -1,5 +1,5 @@
 # Tucil3_13522048 
-> A GUI based application using Java Swing for finding the shortest path between two words with the Word Ladder Game procedure using the **A* (A Star), UCS (Uniform Cost Search) and GBFS (Greedy Best First Search)** algorithms."
+> A GUI based application using Java Swing for finding the shortest path between two words with the Word Ladder Game procedure using the **A\* (A Star), UCS (Uniform Cost Search) and GBFS (Greedy Best First Search)** algorithms."
 
 ## Table of Contents
 
@@ -7,12 +7,16 @@
 - [Program Requirements](#program-requirements)
 - [Setup](#setup)
 - [Screenshots](#screenshots)
+- [Usage](#usage)
+- [Features](#features)
+- [Room for Improvement](#room-for-improvement)
 - [Author](#author)
-
 
 ## Technologies Used
 
 - Java version 20.0.2
+- Java Swing
+- Java AWT
 
 
 ## Program Requirements
@@ -48,12 +52,29 @@ run-gui.sh (linux)
 ```
 
 ## Screenshots
-![Basic Overview of the Website](https://github.com/novelxv/Tubes2_GoLink/assets/118401646/a00ca9b0-6e22-4875-88cb-96d3e2d0beac)<br>
-_Basic Overview of the Website_
 
-![Graph Visualisation](https://github.com/novelxv/Tubes2_GoLink/assets/118401646/20044d30-1dfc-4c15-9092-37c372d0ef95)<br>
-_Multiple solutions with graph visualisation interface_
 
+## Usage
+
+1. Enter the starting word and end word, also select which algorithms to be used
+2. Click the submit button
+3. Result will be displpayed
+
+## Features
+| Point | Yes | No |
+|-----|-----|------|
+|1. Program can be run | &check; | |
+|2. Program can find a sequence of words from the start word to the end word according to the rules of the game using the UCS algorithm | &check; | |
+|3. The solution provided by the UCS algorithm is optimal | &check; | |
+|4. Program can find a sequence of words from the start word to the end word according to the rules of the game using the Greedy Best First Search algorithm | &check; | |
+|5. Program can find a sequence of words from the start word to the end word according to the rules of the game using the A* algorithm | &check; | |
+|6. The solution provided by the A* algorithm is optimal | &check; | |
+|7. Program has a GUI | &check; | |
+
+## Room for Improvement
+1. Better encapsulation using the OOP principles to obey flexibility and modularity
+2. Creating better and more functional GUI
+3. Finding more ways to optimize the algorithm
 
 ## Author
 

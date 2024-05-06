@@ -227,7 +227,7 @@ public class WordLadderGUI extends JFrame {
         
         popupFrame.add(resultPanel, BorderLayout.CENTER);
 
-        popupFrame.setSize(700, 1000);
+        popupFrame.setSize(750, 1000);
         popupFrame.setLocationRelativeTo(this);
         popupFrame.setVisible(true);
     }

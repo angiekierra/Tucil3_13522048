@@ -59,21 +59,5 @@ public class RoundedButton extends JButton {
         g2.drawString(getText(), (getWidth() - g2.getFontMetrics().stringWidth(getText())) / 2, ((getHeight() - g2.getFontMetrics().getHeight()) / 2) + g2.getFontMetrics().getAscent());
         g2.dispose();
     }
-
-    // Disabling default border
-    @Override
-    protected void paintBorder(Graphics g) {
-        // Do not paint border
-    }
-
-    // Setter
-    public void setDefaultColor(Color defaultColor) {
-        this.defaultColor = defaultColor;
-    }
-
-    public void setHoverColor(Color hoverColor) {
-        this.hoverColor = hoverColor;
-    }
-
     
 }
