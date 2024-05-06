@@ -52,13 +52,19 @@ run-gui.sh (linux)
 ```
 
 ## Screenshots
+![Screenshot 2024-05-06 115218](https://github.com/angiekierra/Tucil3_13522048/assets/118401646/8485d8f8-75cc-462f-b7c9-7b5d64ac7239)
 
 
 ## Usage
+1. Enter the starting word and end word, also select which algorithms to be used <br>
+![Screenshot 2024-05-06 121913](https://github.com/angiekierra/Tucil3_13522048/assets/118401646/c54cf59b-62cd-495b-a21a-52ac36daf0e7)<br>
 
-1. Enter the starting word and end word, also select which algorithms to be used
-2. Click the submit button
-3. Result will be displpayed
+2. Click the submit button <br>
+![Screenshot 2024-05-06 122014](https://github.com/angiekierra/Tucil3_13522048/assets/118401646/c773ee0d-c90b-4a18-b80f-ecb5a884e798)<br>
+
+3. Result will be displayed <br>
+![Screenshot 2024-05-06 122051](https://github.com/angiekierra/Tucil3_13522048/assets/118401646/fc309c02-811b-400f-8704-3e450fab8969)<br>
+
 
 ## Features
 | Point | Yes | No |
