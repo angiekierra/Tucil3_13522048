@@ -1,0 +1,24 @@
+[1]
+Start word: friend          
+End word: lovers
+[2]
+Start word: charge
+End word: comedo
+[3]
+Start word: atlases
+End word: cabaret
+[4]
+Start word: like
+End word: hate
+[5]
+Start word: economic
+End word: abstract
+[6]
+Start word: stone
+End word: money
+[7]
+Start word: short
+End word: taken
+[8]
+Start word: dread
+End word: smile
