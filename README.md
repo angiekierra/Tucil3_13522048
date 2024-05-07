@@ -51,6 +51,19 @@ cd Tubes2_GoLink
 run-gui.sh (linux)
 ```
 
+> [!WARNING]
+> Compile manually if the run.bat / run.sh does not work
+1. Using CLI
+```bash
+javac -d bin src/*.java src/algorithms/*.java src/utils/*.java src/cli/WordLadder.java
+java -cp bin src/WordLadderCLI
+```
+2. Using GUI
+```bash
+javac -d bin src/*.java src/algorithms/*.java src/utils/*.java src/gui/*.java
+java -cp bin src/WordLadderGUI
+```
+
 ## Screenshots
 ![Screenshot 2024-05-06 115218](https://github.com/angiekierra/Tucil3_13522048/assets/118401646/8485d8f8-75cc-462f-b7c9-7b5d64ac7239)
 
